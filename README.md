@@ -5,7 +5,7 @@ User Stories :
 * Authentication
     * Sign up  
       I can sign up by specifying my `name`, `email`, `password`.  
-      If the email is already in the database, I get an error.  
+      If the username is already in the database, I get an error.
       Once the account is successfully created, I'm automatically logged in.
 
     * Logout
@@ -22,7 +22,7 @@ User Stories :
         I get a feedback to share the poll  
         I come back later to access it using its url
 
-          Congratulations! Your poll has been posted to http://<url>/<username>/<pollname>
+          Congratulations! Your poll has been posted to http://<url>/<user.id>/<pollname>
 
     * I can see the aggregate results of my polls
     * I can delete polls that I decide I don't want anymore

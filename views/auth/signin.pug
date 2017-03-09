@@ -15,3 +15,12 @@ block content
                 input(type="password" name="password" id="password" class="form-control" required)
             
             input(type="submit" class="btn btn-default" value="Login")
+
+            a(href="/auth/github")
+                div(class="btn btn-primary btn-github")
+                    img(src="/public/img/github_32px.png" alt="github logo")
+                    p LOGIN WITH GITHUB
+
+        br
+        p Need an account?&nbsp;
+            a(href="/signup") Signup

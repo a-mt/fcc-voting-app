@@ -1,6 +1,6 @@
 'use strict';
 
-var User = require('../models/users.js');
+var User = require('../models/users-local');
 
 function AuthHandler(){
 
@@ -45,7 +45,7 @@ function AuthHandler(){
     // Login with an account
     this.signin = function(req, res) {
 	    res.render('auth/signin', {
-	        title: 'Signin',
+	        title: 'Login',
 	        error: req.flash("error").pop()
 	    });
     };
@@ -53,7 +53,7 @@ function AuthHandler(){
     // Change password
     this.settings = function(req, res){
         res.render('auth/settings', {
-            title: 'Change Password',
+            title: 'About me',
 	        errors: req.flash("errors").pop() || {},
             data: req.flash('data').pop() || {},
 	        success: req.flash("success").pop()

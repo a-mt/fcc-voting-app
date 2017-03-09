@@ -23,3 +23,7 @@ p { padding: 5px; }
 .warning { color: #8a6d3b; }
 .info { color: #31708f; }
 .success { color: #3c763d; }
+
+.btn-github { position: relative; }
+.btn-github img { position: absolute; left: 5px; top: 4px; height: 25px; }
+.btn-github p { margin: 0 0 0 25px; padding: 0; }

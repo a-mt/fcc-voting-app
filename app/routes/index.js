@@ -44,4 +44,17 @@ module.exports = function (app) {
     app.route('/settings')
         .get(isLoggedIn, authHandler.settings)
         .post(isLoggedIn, authHandler.settingsSubmit);
+
+    // login via github
+	app.route('/auth/github')
+	   .get(passport.authenticate('github'));
+
+    app.route('/auth/github/callback')
+       .get(passport.authenticate('github', {
+			    successRedirect: '/',
+                failureRedirect: '/login',
+                failureFlash: true
+            }
+        ));
+
 };

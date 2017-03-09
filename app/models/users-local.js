@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
 
 var SALT_WORK_FACTOR = 10;
 
-var User = new Schema({
+var LocalUser = new Schema({
+    provider: { type: String, default: 'local' },
     username: {
         type: String,
         trim: true,
@@ -26,10 +27,10 @@ var User = new Schema({
         minlength: [3, 'Password must be at least 3 characters'],
         required: [true, 'The field "password" is required']
     }
-});
+}, { collection: 'users' });
 
 // Hash the password
-User.pre('save', function(next) {
+LocalUser.pre('save', function(next) {
     var user = this;
     if (!user.isModified('password')) {
         return next();
@@ -50,11 +51,11 @@ User.pre('save', function(next) {
 });
 
 // Check password match
-User.methods.verifyPassword = function(password, cb) {
+LocalUser.methods.verifyPassword = function(password, cb) {
   bcrypt.compare(password, this.password, function(err, isMatch) {
     if (err) return cb(err);
     cb(null, isMatch);
   });
 };
 
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('LocalUser', LocalUser);
