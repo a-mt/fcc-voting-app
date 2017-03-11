@@ -1,0 +1,58 @@
+extends ../layout.pug
+
+block scripts
+    script(type="text/javascript" src="https://www.gstatic.com/charts/loader.js")
+
+block content
+    div(class="container")
+        if error
+            p(class="alert error") #{error}
+
+        h2(class="page-header") Results
+            small(class="label label-default pull-right") #{poll.totalclicks} vote#{(poll.totalclicks == 1 ? '':'s')}
+        h3
+            = poll.title
+            small &nbsp;by "#{poll._creator.username}"
+                if poll._creator.provider != 'local'
+                   span &nbsp;(#{poll._creator.provider})
+
+        if poll.totalclicks > 0
+            div(id="chart_div")
+        else
+            br
+
+        div(class="list-group")
+        each option in poll.options
+
+            div(class="list-group-item row")
+                div(class="col-md-6")
+                    label #{option.title}
+
+                div(class="col-md-6")
+                    div(class="percent")
+                        - var width = Number((option.nbclicks/poll.totalclicks)*100).toFixed(2)
+                        div(style="width:" + width + "%" title=width + "%")
+                            = option.nbclicks
+
+        <!-- Google charts -->
+        script(type="text/javascript")
+            | google.charts.load('current', {'packages':['corechart']});
+            | google.charts.setOnLoadCallback(drawChart);
+            
+            | function drawChart() {
+            |   var data = new google.visualization.DataTable();
+            |   data.addColumn('string', 'Option');
+            |   data.addColumn('number', 'Votes');
+            
+            |   data.addRows([
+            each option in poll.options
+                | ["
+                = option.title
+                | ",
+                = option.nbclicks
+                | ],
+            |   ]);
+            
+            |   var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            |   chart.draw(data, { height: 400 });
+            | }

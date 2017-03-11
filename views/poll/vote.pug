@@ -1,0 +1,31 @@
+extends ../layout.pug
+
+block content
+    div(class="container")
+        if error
+            p(class="alert error") #{error}
+        h2(class="page-header")
+            = poll.title
+            small &nbsp;by "#{poll._creator.username}"
+                if poll._creator.provider != 'local'
+                   span &nbsp;(#{poll._creator.provider})
+
+        form(method="post")
+            ol(class="list-group")
+                each option, num in poll.options
+                    li(class="radio list-group-item")
+                        label
+                            input(type="radio" name="options" value=num)
+                            span &nbsp; #{option.title}
+    
+            if user
+                button(type="button" class="btn pull-right once" id="add-option") Add a choice
+                script(type="text/tpl" id="add-option-tpl")
+                    li(class="radio list-group-item")
+                        label(class="input")
+                            input(type="radio" name="options" value="custom")
+                            input(type="text" name="custom" class="form-control" onclick="$(this).prev().click()")
+
+            input(type="submit" class="btn btn-default")
+        
+        a(href=url+"/results") View results

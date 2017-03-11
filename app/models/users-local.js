@@ -15,12 +15,6 @@ var LocalUser = new Schema({
         unique: true,
         required: [true, 'The field "username" is required']
     },
-    email: {
-        type: String,
-        trim: true,
-        required: [true, 'The field "email" is required'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
-    },
     password: {
         type: String,
         trim: true,

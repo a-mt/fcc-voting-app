@@ -1,0 +1,18 @@
+extends ../layout.pug
+
+block content
+    div(class="container")
+
+        h2(class="page-header") My polls
+        a(href="/new/poll" class="pull-right") Add a new poll
+
+        p(class="js-empty" style='display:'+(docs.length > 0 ? 'none' : 'block')) You don't have any polls yet
+
+        br
+        br
+        div(class="list-group")
+            each poll in docs
+                div(class="list-group-item js-dismiss")
+                    a(href="/poll/"+poll.id+'/results' class="js-title") #{poll.title}
+                    small &nbsp;(#{poll.totalclicks})
+                    button(type="button" class="btn js-delete" data-id=poll.id) Delete

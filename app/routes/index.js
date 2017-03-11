@@ -1,5 +1,5 @@
-var AuthHandler = require(process.cwd() + '/app/controllers/auth.js'),
-    authHandler = new AuthHandler(),
+var AuthHandler = require(process.cwd() + '/app/controllers/auth.js'), authHandler = new AuthHandler(),
+    PollHandler = require(process.cwd() + '/app/controllers/poll.js'), pollHandler = new PollHandler(),
     passport    = require('passport');
 
 module.exports = function (app) {
@@ -14,11 +14,7 @@ module.exports = function (app) {
     }
 
     // homepage
-    app.get('/', function(req, res){
-        res.render('index', {
-            title: 'Homepage'
-        });
-    });
+    app.get('/', pollHandler.list);
 
     // signup
     app.route('/signup')
@@ -57,4 +53,23 @@ module.exports = function (app) {
             }
         ));
 
+    // Create a new poll
+    app.route('/new/poll')
+       .get(isLoggedIn, pollHandler.create)
+       .post(isLoggedIn, pollHandler.createSubmit);
+
+    // Delete
+    app.post('/delete/poll', isLoggedIn, pollHandler.delete);
+
+    // View votes
+    app.route(/^\/poll\/([a-z0-9]+)\/results/)
+       .get(pollHandler.view);
+
+    // Vote
+    app.route(/^\/poll\/([a-z0-9]+)/)
+       .get(pollHandler.vote)
+       .post(pollHandler.voteSubmit);
+
+    // View polls
+    app.get('/mypolls', isLoggedIn, pollHandler.listUser);
 };

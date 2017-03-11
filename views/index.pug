@@ -9,3 +9,16 @@ block content
       if !user
         p
           a(class="btn btn-primary btn-lg" href="/signup" role="button") Sign up
+      else
+        p
+          a(class="btn btn-primary btn-lg" href="/new/poll" role="button") Add a new poll
+          a(class="btn btn-success btn-lg" href="/mypolls" role="button") My polls
+
+  if docs.length > 0
+    div(class="container")
+      h2 Polls
+      div(class="list-group")
+      each poll in docs
+          div(class="list-group-item js-dismiss")
+              a(href="/poll/"+poll.id) #{poll.title}
+              small &nbsp;(#{poll.totalclicks})

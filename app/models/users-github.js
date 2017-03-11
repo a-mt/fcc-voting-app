@@ -13,8 +13,7 @@ var GithubUser = new Schema({
     github_id: {
         type: String,
         required: [true, 'The field "id" is required']
-    },
-    displayName: { type: String }
+    }
 }, { collection: 'users' });
 
 module.exports = mongoose.model('GithubUser', GithubUser);
