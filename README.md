@@ -1,6 +1,8 @@
 # Voting App
 
-User Stories :
+Demo on https://voting-app-60795.herokuapp.com/
+
+## User Stories :
 
 * Authentication
     * Sign up 
@@ -30,5 +32,6 @@ User Stories :
     * I can see the results of polls in chart form.
     * (only if auth) if I don't like the options on a poll, I can create a new option
 
+Exemples :  
 https://fcc-voting-arthow4n.herokuapp.com/polls  
 http://votingapp.herokuapp.com
